@@ -1,0 +1,15 @@
+﻿@page "/graph"
+<h3>Graph</h3>
+@foreach (var team in teams)
+{
+    <p>@team. - Celkem - @team.TeamRounds.Sum(x=>x.Total) </p>
+    @foreach (var round in team.TeamRounds)
+    {
+        <p>@round.RoundNumber -  @round.Total</p>
+    }
+}
+
+@code {
+    private List<Models.TeamModel> teams = Globals.Global.Teams;
+
+}

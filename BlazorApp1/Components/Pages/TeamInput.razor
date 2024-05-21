@@ -1,0 +1,19 @@
+﻿
+
+<div class="col-md-4 mb-3">
+    <h4>Team @Team.TeamNumber</h4>
+    <input type="text" placeholder="Team Name" @bind="Team.TeamName"/>
+    <input type="number" placeholder="Team Rating" @bind="TeamRound.Tym" />
+    <input type="number" placeholder="Presentation Rating" @bind="TeamRound.Presentation" />
+    <input type="number" placeholder="Idea Rating" @bind="TeamRound.Idea" />
+    <input type="number" placeholder="Prototype Rating" @bind="TeamRound.Prototype" />
+    <p>@TeamRound.Total</p>
+</div>
+
+@code {
+    [Parameter]
+    public Models.TeamRound TeamRound { get; set; }
+
+    [Parameter]
+    public Models.TeamModel Team { get; set; }
+}

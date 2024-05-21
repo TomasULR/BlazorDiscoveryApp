@@ -1,0 +1,88 @@
+﻿@page "/"
+@inject IJSRuntime JSRuntime
+@using System.Collections.Generic
+@using BlazorApp1.Models
+@rendermode InteractiveServer
+
+<PageTitle>Home</PageTitle>
+
+
+<button @onclick="CreateTeams">Create Teams</button>
+<p>Number of Teams</p>
+
+<input @bind="numberOfTeams" type="number" placeholder="Number of Teams" />
+
+
+@if (teams.Count > 0)
+{
+    <h2>Teams: @teams.Count</h2>
+    
+}
+<p>Number of Rounds</p>
+<input @bind="round" type="number" placeholder="Round" />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Team \ Round</th>
+            @for (int i = 0; i < round; i++)
+            {
+                <th>Round @(i + 1)</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var team in teams)
+        {
+            <tr>
+                <td>Team @team.TeamNumber</td>
+                @foreach (var teamRound in team.TeamRounds)
+                {
+                    <td><TeamInput Team="@team" TeamRound="@teamRound" /></td>
+                }
+               
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private int numberOfTeams;
+    private int round = 5;
+    private int counter = 0;
+    private List<TeamModel> teams = Globals.Global.Teams;
+    private void CreateTeams() //creates one or more teams
+    {
+        counter = 0;
+        Globals.Global.Teams.Clear();
+        for (int i = 1; i <= numberOfTeams; i++)
+        {
+            counter++;
+            TeamModel team = new TeamModel(round)
+                {
+                    TeamName = "Team " + counter,
+                    TeamNumber = counter,
+                    
+                };
+            teams.Add(team);
+        }
+    }
+
+    // private async Task CreateTeam() // adds only one team
+    // {
+    //     counter++;
+    //     TeamModel team = new TeamModel
+    //         {
+    //             TeamName = "Team " + counter,
+    //             TeamNumber = counter,
+    //             Tym = 0,
+    //             Presentation = 0,
+    //             Idea = 0,
+    //             Prototype = 0
+    //         };
+    //     teams.Add(team);
+
+    //     // Print team creation information in browser console
+    //     await JSRuntime.InvokeVoidAsync("console.log", "Team created. Counter: " + counter);
+    // }
+}
