@@ -8,9 +8,15 @@
 
 
 <button @onclick="CreateTeams">Create Teams</button>
-<p>Number of Teams</p>
-
-<input @bind="numberOfTeams" type="number" placeholder="Number of Teams" />
+    <div>
+        
+        <input @bind="numberOfTeams" type="number" placeholder="Number of Teams" />
+        <p>Number of Teams</p>
+    </div>
+    <div>
+        <input @bind="round" type="number" placeholder="Round" />
+        <p>Number of Rounds</p>
+    </div>  
 
 
 @if (teams.Count > 0)
@@ -18,29 +24,52 @@
     <h2>Teams: @teams.Count</h2>
     
 }
-<p>Number of Rounds</p>
-<input @bind="round" type="number" placeholder="Round" />
 
-<table class="table">
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Team \ Round</th>
+                @for (int i = 0; i < round; i++)
+                {
+                    <th>Round @(i + 1)</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var team in teams)
+            {
+                <tr>
+                    <td>Team @team.TeamNumber</td>
+                    @foreach (var teamRound in team.TeamRounds)
+                    {
+                        <td><TeamInput Team="@team" TeamRound="@teamRound" /></td>
+                    }
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<table>
     <thead>
         <tr>
-            <th>Team \ Round</th>
-            @for (int i = 0; i < round; i++)
+            @for (int col = 1; col <= 8; col++)
             {
-                <th>Round @(i + 1)</th>
+                <th>Column @col</th>
             }
+            <th>Sum</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var team in teams)
+        @for (int row = 0; row < 4; row++)
         {
             <tr>
-                <td>Team @team.TeamNumber</td>
-                @foreach (var teamRound in team.TeamRounds)
-                {
-                    <td><TeamInput Team="@team" TeamRound="@teamRound" /></td>
-                }
                
+                <td>sadsasd</td>
             </tr>
         }
     </tbody>
