@@ -6,5 +6,6 @@ namespace BlazorApp1.Globals
     {
         public static List<TeamModel> Teams { get; set; } = new List<TeamModel>();
 
+        public static int CurrentRound = 0;
     }
 }

@@ -1,4 +1,4 @@
-﻿@page "/"
+﻿@page "/Default"
 @inject IJSRuntime JSRuntime
 @using System.Collections.Generic
 @using BlazorApp1.Models
@@ -8,11 +8,10 @@
 
 <button @onclick="CreateTeams">Create Teams</button>
 <button @onclick="prevRound">Previous Round</button>
-<button @onclick="update">Finish and Next Round</button>
+<button @onclick="update">Next Round</button>
 <div>
     <input @bind="numberOfTeams" type="number" placeholder="Number of Teams" />
     <p>Number of Teams</p>
-
 </div>
 <div>
     <input @bind="round" type="number" placeholder="Round" />
@@ -21,8 +20,8 @@
 
 @if (teams.Count > 0)
 {
-    <h2>Teams: @teams.Count</h2>
     <h2>Round: @Globals.Global.CurrentRound</h2>
+    <h2>Teams: @teams.Count</h2>
 }
 
 <div>
@@ -30,26 +29,25 @@
         <thead>
             <tr>
                 <th>Team \ Round</th>
-                <th>Round @Globals.Global.CurrentRound</th>
+                @for (int i = 0; i < round; i++)
+                {
+                    <th>Round @(i + 1)</th>
+                }
             </tr>
         </thead>
         <tbody>
             @foreach (var team in teams)
             {
-                <tr>
-                    <td>Team @team.TeamNumber</td>
-
-                    @foreach (var teamRound in team.TeamRounds)
+                @foreach (var teamRound in team.TeamRounds)
+                {
+                    @if (teamRound.RoundNumber == Globals.Global.CurrentRound)
                     {
-                        @if (teamRound.RoundNumber == Globals.Global.CurrentRound)
-                        {
-                            <td><TeamInput Team="@team" TeamRound="@teamRound" /></td>
-                        }
-                    }
-                </tr>
+                    <td><TeamInput Team="@team" TeamRound="@teamRound" /></td>
+                }
+                }
             }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 </div>
 
 @code {
