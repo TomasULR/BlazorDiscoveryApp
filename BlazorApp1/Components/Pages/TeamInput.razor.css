@@ -26,11 +26,3 @@ button {
 input {
     color: black;
 }
-.red_button {
-    padding: 10px;
-    background-color: #ff0000;
-    color: white;
-    border: none;
-    cursor: pointer;
-    margin-bottom: 10px;
-}

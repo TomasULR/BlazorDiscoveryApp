@@ -1,63 +1,14 @@
-﻿@page "/"
-@inject IJSRuntime JSRuntime
-@using System.Collections.Generic
-@using BlazorApp1.Models
-@rendermode InteractiveServer
+﻿using BlazorApp1.Models;
+using Microsoft.AspNetCore.Components;
 
-
-    <PageTitle>Home</PageTitle>
-
-    <button class="red_button" @onclick="CreateTeams">Create Teams</button>
-    <button @onclick="prevRound">Previous Round</button>
-    <button @onclick="update">Finish and Next Round</button>
-    <div>
-        <input @bind="numberOfTeams" type="number" placeholder="Number of Teams" />
-        <p>Number of Teams</p>
-        z
-    </div>
-    <div>
-        <input @bind="round" type="number" placeholder="Round" />
-        <p>Number of Rounds</p>
-    </div>
-
-    @if (teams.Count > 0)
+namespace BlazorApp1.Globals
+{
+    public class Game
     {
-        <h2>Teams: @teams.Count</h2>
-        <h2>Round: @Globals.Global.CurrentRound</h2>
-    }
-
-    <div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Team \ Round</th>
-                    <th>Round @Globals.Global.CurrentRound</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var team in teams)
-                {
-                    <tr>
-                        <td>Team @team.TeamNumber</td>
-
-                        @foreach (var teamRound in team.TeamRounds)
-                        {
-                            @if (teamRound.RoundNumber == Globals.Global.CurrentRound)
-                            {
-                                <td><TeamInput Team="@team" TeamRound="@teamRound" /></td>
-                            }
-                        }
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-
-    @code {
-        private int numberOfTeams = Globals.Global.NumberOfTeams;
-        public int round = Globals.Global.Round;
-        private int counter = Globals.Global.Counter;
-        private List<TeamModel> teams = Globals.Global.Teams;
+        private static int numberOfTeams = Globals.Global.NumberOfTeams;
+        public static int round = Globals.Global.Round;
+        private static int counter = Globals.Global.Counter;
+        private static List<TeamModel> teams = Globals.Global.Teams;
 
         [Parameter]
         public Models.TeamRound TeamRound { get; set; }
@@ -67,7 +18,7 @@
             Globals.Global.CurrentRound--;
         }
 
-        private void CreateTeams()
+        public static void CreateTeams()
         {
             Globals.Global.CurrentRound = 0;
             counter = 0;
@@ -85,9 +36,9 @@
             update();
         }
 
-        private void update()
+        public static void update()
         {
-            if(round > Globals.Global.CurrentRound)
+            if (round > Globals.Global.CurrentRound)
             {
                 Globals.Global.CurrentRound++;
 
@@ -128,6 +79,7 @@
                     }
                 }
             }
-            StateHasChanged();
+            
         }
     }
+}
