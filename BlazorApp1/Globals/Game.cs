@@ -5,24 +5,30 @@ namespace BlazorApp1.Globals
 {
     public class Game
     {
-        private static int numberOfTeams = Globals.Global.NumberOfTeams;
-        public static int round = Globals.Global.Round;
-        private static int counter = Globals.Global.Counter;
-        private static List<TeamModel> teams = Globals.Global.Teams;
+        private static int numberOfTeams = Global.NumberOfTeams;
+        public static int round = Global.Round;
+        private static int counter = Global.Counter;
+        private static List<TeamModel> teams = Global.Teams;
 
         [Parameter]
         public Models.TeamRound TeamRound { get; set; }
 
-        private void prevRound()
+        public static void PrevRound()
         {
-            Globals.Global.CurrentRound--;
+            if (Global.CurrentRound > 1)
+            {
+                Global.CurrentRound--;
+
+            }
+
+
         }
 
         public static void CreateTeams()
         {
-            Globals.Global.CurrentRound = 0;
+            Global.CurrentRound = 0;
             counter = 0;
-            Globals.Global.Teams.Clear();
+            Global.Teams.Clear();
             for (int i = 1; i <= numberOfTeams; i++)
             {
                 counter++;
@@ -33,14 +39,14 @@ namespace BlazorApp1.Globals
                 };
                 teams.Add(team);
             }
-            update();
+            Update();
         }
 
-        public static void update()
+        public static void Update()
         {
-            if (round > Globals.Global.CurrentRound)
+            if (round > Global.CurrentRound)
             {
-                Globals.Global.CurrentRound++;
+                Global.CurrentRound++;
 
             }
 

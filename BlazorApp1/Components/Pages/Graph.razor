@@ -4,31 +4,38 @@
 @using Radzen.Blazor
 @rendermode InteractiveServer
 
-           
-            <RadzenChart Style="height: 500px">
-                
-                @foreach (var team in teams)
-                {
-                    
+@if (Globals.Global.Teams.Count > 0)
+{
+    <RadzenChart Style="height: 500px; background-image: url('bootstrap/untitled.png');">
 
-                        <RadzenLineSeries Data="@team.TeamRounds"
-                                          CategoryProperty="RoundNumber"
-                                          ValueProperty="Total"
-                                          Title="@team.TeamName"
-                                          Smooth="@smooth">
-                            <RadzenMarkers Visible="@showMarkers" MarkerType="MarkerType.Circle" />
-                            <RadzenSeriesDataLabels Visible="@showDataLabels" />
-                        </RadzenLineSeries>
-                }
-                <RadzenCategoryAxis Padding="20">
-                    <RadzenAxisTitle Text="Round Number" />
-                </RadzenCategoryAxis>
-                <RadzenValueAxis>
-                    <RadzenAxisTitle Text="Total Points" />
-                    <RadzenGridLines Visible="true" />
-                </RadzenValueAxis>
-            </RadzenChart>
-      
+        @foreach (var team in teams)
+        {
+
+
+            <RadzenLineSeries Data="@team.TeamRounds"
+                              CategoryProperty="RoundNumber"
+                              ValueProperty="Total"
+                              Title="@team.TeamName"
+                              Smooth="@smooth">
+                <RadzenMarkers Visible="@showMarkers" MarkerType="MarkerType.Circle" />
+                <RadzenSeriesDataLabels Visible="@showDataLabels" />
+            </RadzenLineSeries>
+        }
+        <RadzenCategoryAxis Padding="20">
+            <RadzenAxisTitle Text="Round Number" />
+        </RadzenCategoryAxis>
+        <RadzenValueAxis Max="100">
+            <RadzenAxisTitle Text="Total Points" />
+            <RadzenGridLines Visible="true" />
+        </RadzenValueAxis>
+    </RadzenChart>
+}
+else
+{
+    <p>No teams</p>
+
+    <a href="/"><h1>START THE GAME</h1></a>
+}
 
 @code {
     private List<Models.TeamModel> teams = Globals.Global.Teams;
