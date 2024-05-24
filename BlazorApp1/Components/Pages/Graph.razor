@@ -4,9 +4,28 @@
 @using Radzen.Blazor
 @rendermode InteractiveServer
 
+<style>
+    .div {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 10px;
+    }
+
+    .sidebar {
+        width: 0px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+</style>
+
 @if (Globals.Global.Teams.Count > 0)
 {
-    <RadzenChart Style="height: 500px; background-image: url('bootstrap/untitled.png');">
+    <RadzenChart Style="height: 800px; background-image: url('bootstrap/untitled.png');   background-repeat: no-repeat; background-size:contain;
+">
 
         @foreach (var team in teams)
         {
@@ -32,9 +51,12 @@
 }
 else
 {
-    <p>No teams</p>
+    <div class="div">
+        <p>No teams</p>
 
-    <a href="/"><h1>START THE GAME</h1></a>
+        <a href="/"><h1>START THE GAME</h1></a>
+    </div>
+    
 }
 
 @code {

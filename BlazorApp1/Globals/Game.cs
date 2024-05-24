@@ -18,10 +18,7 @@ namespace BlazorApp1.Globals
             if (Global.CurrentRound > 1)
             {
                 Global.CurrentRound--;
-
             }
-
-
         }
 
         public static void CreateTeams()
@@ -29,7 +26,7 @@ namespace BlazorApp1.Globals
             Global.CurrentRound = 0;
             counter = 0;
             Global.Teams.Clear();
-            for (int i = 1; i <= numberOfTeams; i++)
+            for (int i = 1; i <= Global.NumberOfTeams; i++)
             {
                 counter++;
                 TeamModel team = new TeamModel(round)

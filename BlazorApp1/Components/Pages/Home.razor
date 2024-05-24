@@ -5,44 +5,67 @@
 @rendermode InteractiveServer
 
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Nvias Teams</PageTitle>
 
-<button @onclick="Globals.Game.PrevRound">Previous Round</button>
-<button @onclick="Globals.Game.Update">Finish and Next Round</button>
+<style>
+
+    .sidebar {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+</style>
+
+@if (Globals.Global.Teams.Count > 0){
+
+    <button @onclick="Globals.Game.PrevRound">Previous Round</button>
+    <button @onclick="Globals.Game.Update">Finish and Next Round</button>
 
 
-@if (@Globals.Global.Teams.Count > 0)
+    @if (@Globals.Global.Teams.Count > 0)
+    {
+        <h2>Teams: @Globals.Global.Teams.Count</h2>
+        <h2>Round: @Globals.Global.CurrentRound</h2>
+    }
+
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Team \ Round</th>
+                    <th>Round @Globals.Global.CurrentRound</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var team in @Globals.Global.Teams)
+                {
+                    <tr>
+                        <td>Team @team.TeamNumber</td>
+
+                        @foreach (var teamRound in team.TeamRounds)
+                        {
+                            @if (teamRound.RoundNumber == Globals.Global.CurrentRound)
+                            {
+                                <td><TeamInput Team="@team" TeamRound="@teamRound" /></td>
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+}
+else
 {
-    <h2>Teams: @Globals.Global.Teams.Count</h2>
-    <h2>Round: @Globals.Global.CurrentRound</h2>
+    <p>No teams</p>
+
+    <a href="/"><h1>START THE GAME</h1></a>
 }
 
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Team \ Round</th>
-                <th>Round @Globals.Global.CurrentRound</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var team in @Globals.Global.Teams)
-            {
-                <tr>
-                    <td>Team @team.TeamNumber</td>
-
-                    @foreach (var teamRound in team.TeamRounds)
-                    {
-                        @if (teamRound.RoundNumber == Globals.Global.CurrentRound)
-                        {
-                            <td><TeamInput Team="@team" TeamRound="@teamRound" /></td>
-                        }
-                    }
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
 
 @code {
 
