@@ -54,7 +54,7 @@ namespace BlazorApp1.Globals
                     if (i > 0)
                     {
                         if (team.TeamRounds[i].Presentation < team.TeamRounds[i - 1].Presentation)
-                        {
+                        {   
                             team.TeamRounds[i].Presentation = team.TeamRounds[i - 1].Presentation;
                         }
                         if (team.TeamRounds[i].Idea < team.TeamRounds[i - 1].Idea)

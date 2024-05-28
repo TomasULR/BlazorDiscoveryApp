@@ -20,49 +20,52 @@
         top: 0;
     }
 
+    .radzen-chart {
+        background-image: url('bootstrap/untitled.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        width:auto;
+        height: 70vh;
+    }
 </style>
 
 @if (Globals.Global.Teams.Count > 0)
 {
-    <RadzenChart Style="height: 800px; background-image: url('bootstrap/untitled.png');   background-repeat: no-repeat; background-size:contain;
-">
-
-        @foreach (var team in teams)
-        {
-
-
-            <RadzenLineSeries Data="@team.TeamRounds"
-                              CategoryProperty="RoundNumber"
-                              ValueProperty="Total"
-                              Title="@team.TeamName"
-                              Smooth="@smooth">
-                <RadzenMarkers Visible="@showMarkers" MarkerType="MarkerType.Circle" />
-                <RadzenSeriesDataLabels Visible="@showDataLabels" />
-            </RadzenLineSeries>
-        }
-        <RadzenCategoryAxis Padding="20">
-            <RadzenAxisTitle Text="Round Number" />
-        </RadzenCategoryAxis>
-        <RadzenValueAxis Max="100">
-            <RadzenAxisTitle Text="Total Points" />
-            <RadzenGridLines Visible="true" />
-        </RadzenValueAxis>
-    </RadzenChart>
+    <div class="chart-container">
+        <RadzenChart class="radzen-chart">
+            @foreach (var team in teams)
+            {
+                <RadzenLineSeries Data="@team.TeamRounds"
+                                  CategoryProperty="RoundNumber"
+                                  ValueProperty="Total"
+                                  Title="@team.TeamName"
+                                  Smooth="@smooth">
+                    <RadzenMarkers Visible="@showMarkers" MarkerType="MarkerType.Circle" />
+                    <RadzenSeriesDataLabels Visible="@showDataLabels" />
+                </RadzenLineSeries>
+            }
+            <RadzenCategoryAxis Padding="20">
+                <RadzenAxisTitle Text="Round Number" />
+            </RadzenCategoryAxis>
+            <RadzenValueAxis Max="100">
+                <RadzenAxisTitle Text="Total Points" />
+                <RadzenGridLines Visible="true" />
+            </RadzenValueAxis>
+        </RadzenChart>
+    </div>
 }
 else
 {
     <div class="div">
         <p>No teams</p>
-
         <a href="/"><h1>START THE GAME</h1></a>
     </div>
-    
 }
 
 @code {
     private List<Models.TeamModel> teams = Globals.Global.Teams;
 
-    bool smooth = true;
+    bool smooth = false;
     bool showDataLabels = false;
     bool showMarkers = true;
 }

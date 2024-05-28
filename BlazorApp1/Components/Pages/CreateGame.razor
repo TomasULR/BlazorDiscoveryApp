@@ -4,6 +4,8 @@
 @using BlazorApp1.Models
 @rendermode InteractiveServer
 
+<PageTitle>AiDiscovery</PageTitle>
+
 <style>
     .div {
         position: absolute;
@@ -13,13 +15,18 @@
         padding: 10px;
     }
    
-    /* Hide the entire navbar */
-    .navbar, .navbar-toggler, .nav-scrollable {
-        display: none ;
+  
+
+    .sidebar {
+        width: 0px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
     }
 
 
 </style>
+
 
 <div class="div">
     <a href="/home"<button class="red_button" @onclick="Globals.Game.CreateTeams">Create Teams</button></a>
