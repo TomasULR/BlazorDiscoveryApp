@@ -39,6 +39,20 @@ namespace BlazorApp1.Globals
             Update();
         }
 
+        public static void InitializeGameState()
+        {
+            try
+            {
+                Global.LoadFromFile("C:\\Users\\tomas\\Source\\Repos\\TomasULR\\BlazorDiscoveryApp\\BlazorApp1\\appsettings.json");
+            }
+            catch (FileNotFoundException)
+            {
+                // Handle the case where the file does not exist
+                // Maybe create a default state or inform the user
+            }
+        }
+
+
         public static void Update()
         {
             Global.SaveToFile("C:\\Users\\tomas\\Source\\Repos\\TomasULR\\BlazorDiscoveryApp\\BlazorApp1\\appsettings.json");

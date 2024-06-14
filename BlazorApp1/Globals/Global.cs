@@ -73,6 +73,7 @@ namespace BlazorApp1.Globals
         }
 
         // Method to load JSON from a file
+
         public static void LoadFromFile(string filePath)
         {
             if (File.Exists(filePath))
