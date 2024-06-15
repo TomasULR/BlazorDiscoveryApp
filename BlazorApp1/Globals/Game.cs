@@ -52,7 +52,6 @@ namespace BlazorApp1.Globals
             }
         }
 
-
         public static void Update()
         {
             Global.SaveToFile("C:\\Users\\tomas\\Source\\Repos\\TomasULR\\BlazorDiscoveryApp\\BlazorApp1\\appsettings.json");
@@ -60,7 +59,6 @@ namespace BlazorApp1.Globals
             if (round > Global.CurrentRound)
             {
                 Global.CurrentRound++;
-
             }
 
             foreach (var team in teams)
@@ -70,7 +68,7 @@ namespace BlazorApp1.Globals
                     if (i > 0)
                     {
                         if (team.TeamRounds[i].Presentation < team.TeamRounds[i - 1].Presentation)
-                        {   
+                        {
                             team.TeamRounds[i].Presentation = team.TeamRounds[i - 1].Presentation;
                         }
                         if (team.TeamRounds[i].Idea < team.TeamRounds[i - 1].Idea)
@@ -98,7 +96,6 @@ namespace BlazorApp1.Globals
                     }
                 }
             }
-            
         }
     }
 }

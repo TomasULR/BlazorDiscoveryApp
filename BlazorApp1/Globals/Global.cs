@@ -10,9 +10,7 @@ namespace BlazorApp1.Globals
     public static class Global
     {
         public static List<TeamModel> Teams { get; set; } = new List<TeamModel>();
-
         public static int CurrentRound { get; set; } = 0;
-
         public static int NumberOfTeams { get; set; }
         public static int Round { get; set; } = 5;
         public static int Counter { get; set; } = 0;
@@ -73,7 +71,6 @@ namespace BlazorApp1.Globals
         }
 
         // Method to load JSON from a file
-
         public static void LoadFromFile(string filePath)
         {
             if (File.Exists(filePath))
