@@ -14,6 +14,7 @@ namespace BlazorApp1.Globals
         public static int NumberOfTeams { get; set; }
         public static int Round { get; set; } = 5;
         public static int Counter { get; set; } = 0;
+        public static bool ShowSidebar { get; set; } = false;
 
         public static string SerializeToJson()
         {

@@ -2,6 +2,8 @@
 @inject IJSRuntime JSRuntime
 @using System.Collections.Generic
 @using BlazorApp1.Models
+
+
 @rendermode InteractiveServer
 
 
@@ -67,5 +69,8 @@ else
 }
 
 @code {
-
+    protected override void OnInitialized()
+    {
+        SidebarService.ShowSidebar = true; // or false based on your requirement
+    }
 }

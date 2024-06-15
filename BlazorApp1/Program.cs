@@ -1,5 +1,6 @@
 using Radzen;
 using BlazorApp1.Components;
+using BlazorApp1.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ builder.Services.AddRazorComponents()
     .AddCircuitOptions(options => options.DetailedErrors = true); // Add this line to enable detailed errors
 
 builder.Services.AddRadzenComponents();
+builder.Services.AddSingleton<SidebarService>();
 
 var app = builder.Build();
 

@@ -8,42 +8,46 @@
 
 <style>
     .div {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        position:relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         padding: 10px;
     }
-   
-  
-
-    .sidebar {
-        width: 0px;
-        height: 100vh;
-        position: sticky;
-        top: 0;
+    .topRows{
+        position:static;
+        display: flex;
+        
+        padding: 10px;
+    
     }
 
 
 </style>
 
 
+<a href="/home"><button>Home</button></a>
+<a href="/home"><button @onclick="Globals.Game.InitializeGameState">Load Saved Game</button></a>
 <div class="div">
-    <a href="/home"<button class="red_button" @onclick="Globals.Game.CreateTeams">Create Teams</button></a>
+   
 
     <div>
+        <a href="/home"<button class="red_button" @onclick="Globals.Game.CreateTeams">Create Teams</button></a>
+        <br />
         <input @bind="Globals.Global.NumberOfTeams" type="number" placeholder="Number of Teams" />
         <p>Number of Teams</p>
-    </div>
-    <div>
         <input @bind="Globals.Global.Round" type="number" placeholder="Round" />
         <p>Number of Rounds</p>
     </div>
 </div>
 
-<a href="/home"<button @onclick="Globals.Game.InitializeGameState">Load Saved Game</button></a>
+
 
 @code {
 
+    protected override void OnInitialized()
+    {
+        SidebarService.ShowSidebar = false; // or false based on your requirement
+    }
 
 }
