@@ -73,7 +73,21 @@ else
     protected override void OnInitialized()
     {
         SidebarService.SetSidebarVisibility(true);
-        
+        SidebarService.OnChange += OnSidebarVisibilityChange;
     }
- 
+
+    private async void OnSidebarVisibilityChange()
+    {
+        // Ensure UI update happens on the UI thread
+        await InvokeAsync(() =>
+        {
+            StateHasChanged();
+        });
+    }
+
+    public void Dispose()
+    {
+        SidebarService.OnChange -= OnSidebarVisibilityChange;
+    }
+
 }

@@ -14,7 +14,7 @@ namespace BlazorApp1.Services
             { 
                     showSidebar = value;
                     //NotifyStateChanged();
-                
+                    
             }
         }
 
