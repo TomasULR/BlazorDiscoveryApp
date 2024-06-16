@@ -3,6 +3,8 @@
 @using System.Collections.Generic
 @using BlazorApp1.Models
 @rendermode InteractiveServer
+@inject SidebarService SidebarService
+
 
 <PageTitle>AiDiscovery</PageTitle>
 
@@ -47,7 +49,10 @@
 
     protected override void OnInitialized()
     {
-        SidebarService.ShowSidebar = false; // or false based on your requirement
+        SidebarService.SetSidebarVisibility(false);
     }
+
+
+    
 
 }

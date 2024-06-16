@@ -1,15 +1,16 @@
-using Radzen;
 using BlazorApp1.Components;
 using BlazorApp1.Services;
+using Radzen;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents()
-    .AddCircuitOptions(options => options.DetailedErrors = true); // Add this line to enable detailed errors
+    .AddInteractiveServerComponents();
 
 builder.Services.AddRadzenComponents();
+
+// Register SidebarService
 builder.Services.AddSingleton<SidebarService>();
 
 var app = builder.Build();

@@ -69,8 +69,11 @@ else
 }
 
 @code {
+
     protected override void OnInitialized()
     {
-        SidebarService.ShowSidebar = true; // or false based on your requirement
+        SidebarService.SetSidebarVisibility(true);
+        
     }
+ 
 }
