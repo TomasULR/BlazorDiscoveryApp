@@ -1,4 +1,5 @@
 ﻿using BlazorApp1.Models;
+using BlazorApp1.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace BlazorApp1.Globals
@@ -9,10 +10,16 @@ namespace BlazorApp1.Globals
         public static int round = Global.Round;
         private static int counter = Global.Counter;
         private static List<TeamModel> teams = Global.Teams;
+        private static RefreshService _refreshService;
 
         [Parameter]
         public Models.TeamRound TeamRound { get; set; }
 
+
+        public Game(RefreshService refreshService)
+        {
+            _refreshService = refreshService;
+        }
         public static void PrevRound()
         {
             if (Global.CurrentRound > 1)
@@ -54,6 +61,7 @@ namespace BlazorApp1.Globals
 
         public static void Update()
         {
+            _refreshService.CallRequestRefresh();
             Global.SaveToFile("C:\\Users\\tomas\\Source\\Repos\\TomasULR\\BlazorDiscoveryApp\\BlazorApp1\\appsettings.json");
 
             if (round > Global.CurrentRound)

@@ -1,20 +1,18 @@
 ﻿@page "/home"
 @inject IJSRuntime JSRuntime
+@inject RefreshService RefreshService
+
 @using System.Collections.Generic
 @using BlazorApp1.Models
 
-
 @rendermode InteractiveServer
 
+<PageTitle>AiDiscovery</PageTitle>
 
-<PageTitle>Nvias Teams</PageTitle>
-
-
-@if (Globals.Global.Teams.Count > 0){
-
+@if (Globals.Global.Teams.Count > 0)
+{
     <button @onclick="Globals.Game.PrevRound">Previous Round</button>
     <button @onclick="Globals.Game.Update">Finish and Next Round</button>
-
 
     @if (@Globals.Global.Teams.Count > 0)
     {
@@ -48,8 +46,6 @@
             </tbody>
         </table>
     </div>
-
-
 }
 else
 {
@@ -59,21 +55,18 @@ else
 }
 
 @code {
-
     protected override void OnInitialized()
     {
-        SidebarService.RefreshRequested += OnSidebarRefreshRequested;
-        SidebarService.InitializeSidebarVisibility(true); // Set initial visibility here
+        RefreshService.RefreshRequested += OnRefreshRequested;
     }
 
-    private void OnSidebarRefreshRequested()
+    private void OnRefreshRequested()
     {
         InvokeAsync(StateHasChanged);
     }
 
     public void Dispose()
     {
-        SidebarService.RefreshRequested -= OnSidebarRefreshRequested;
+        RefreshService.RefreshRequested -= OnRefreshRequested;
     }
-
 }

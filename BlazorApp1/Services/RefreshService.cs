@@ -1,6 +1,20 @@
-﻿namespace BlazorApp1.Services
+﻿using System;
+
+namespace BlazorApp1.Services
 {
-    public class RefreshService
+    public interface IRefreshService
     {
+        event Action RefreshRequested;
+        void CallRequestRefresh();
+    }
+
+    public class RefreshService : IRefreshService
+    {
+        public event Action RefreshRequested;
+
+        public void CallRequestRefresh()
+        {
+            RefreshRequested?.Invoke();
+        }
     }
 }

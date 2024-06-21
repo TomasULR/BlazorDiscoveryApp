@@ -12,6 +12,7 @@ builder.Services.AddRadzenComponents();
 
 // Register SidebarService
 builder.Services.AddSingleton<SidebarService>();
+builder.Services.AddSingleton<RefreshService>();
 
 var app = builder.Build();
 
