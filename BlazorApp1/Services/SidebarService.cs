@@ -2,27 +2,47 @@
 
 namespace BlazorApp1.Services
 {
-    public class SidebarService
+    public interface ISidebarService
     {
-        public event Action OnChange;
-        public bool showSidebar = false;
+        event Action RefreshRequested;
+        void CallRequestRefresh();
+        void SetSidebarVisibility(bool isVisible);
+        void InitializeSidebarVisibility(bool isVisible);
+    }
+
+    public class SidebarService : ISidebarService
+    {
+        public event Action RefreshRequested;
+
+        private bool showSidebar = false;
 
         public bool ShowSidebar
         {
             get => showSidebar;
             private set
-            { 
+            {
+                if (showSidebar != value)
+                {
                     showSidebar = value;
-                    //NotifyStateChanged();
-                    
+                    RefreshRequested?.Invoke();
+                }
             }
         }
-
-        //private void NotifyStateChanged() => OnChange?.Invoke();
 
         public void SetSidebarVisibility(bool isVisible)
         {
             ShowSidebar = isVisible;
+        }
+
+        public void InitializeSidebarVisibility(bool isVisible)
+        {
+            showSidebar = isVisible;
+            RefreshRequested?.Invoke();
+        }
+
+        public void CallRequestRefresh()
+        {
+            RefreshRequested?.Invoke();
         }
     }
 }

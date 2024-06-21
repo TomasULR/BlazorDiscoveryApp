@@ -30,11 +30,16 @@
 @code {
     protected override void OnInitialized()
     {
-        SidebarService.OnChange += StateHasChanged;
+        SidebarService.RefreshRequested += OnSidebarRefreshRequested;
+    }
+
+    private void OnSidebarRefreshRequested()
+    {
+        InvokeAsync(StateHasChanged);
     }
 
     public void Dispose()
     {
-        SidebarService.OnChange -= StateHasChanged;
+        SidebarService.RefreshRequested -= OnSidebarRefreshRequested;
     }
 }
