@@ -1,0 +1,38 @@
+﻿<div class="col-md-4 mb-3">
+    <h4>Team @Team.TeamNumber</h4>
+    <input type="text" placeholder="Team Name" @bind="Team.TeamName" />
+    <input type="number" placeholder="Team Rating" @bind-value="TymInput" />
+    <input type="number" placeholder="Presentation Rating" @bind-value="PresentationInput" />
+    <input type="number" placeholder="Idea Rating" @bind-value="IdeaInput" />
+    <input type="number" placeholder="Prototype Rating" @bind-value="PrototypeInput" />
+    <p>@TeamRound.Total</p>
+</div>
+<button @onclick="ApplyChanges">Submit</button>
+
+@code {
+    [Parameter]
+    public Models.TeamRound TeamRound { get; set; }
+
+    [Parameter]
+    public Models.TeamModel Team { get; set; }
+
+   
+    private int TymInput { get; set; }
+    private int PresentationInput { get; set; }
+    private int IdeaInput { get; set; }
+    private int PrototypeInput { get; set; }
+
+    private void ApplyChanges()
+    {
+        TeamRound.Tym += TymInput;
+        TeamRound.Presentation += PresentationInput;
+        TeamRound.Idea += IdeaInput;
+        TeamRound.Prototype += PrototypeInput;
+
+        // Reset the input fields to 0
+        TymInput = 0;
+        PresentationInput = 0;
+        IdeaInput = 0;
+        PrototypeInput = 0;
+    }
+}

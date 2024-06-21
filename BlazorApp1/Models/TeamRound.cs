@@ -15,6 +15,15 @@ namespace BlazorApp1.Models
         public int Presentation { get; set; }
         public int Prototype { get; set; }
         public int Idea { get; set; }
-        public int Total => Idea + Presentation + Prototype + Tym;
+        public int Total
+        {
+            get => Idea + Presentation + Prototype + Tym;
+            set
+            {
+                Total = value;
+            }
+        }
+
+
     }
 }
