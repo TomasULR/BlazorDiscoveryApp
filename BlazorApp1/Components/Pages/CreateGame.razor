@@ -34,7 +34,7 @@
    
 
     <div>
-        <a href="/home"<button class="red_button" @onclick="Globals.Game.CreateTeams">Create Teams</button></a>
+        <a href="/home"><button class="red_button" @onclick="Globals.Game.CreateTeams">Create Teams</button></a>
         <br />
         <input @bind="Globals.Global.NumberOfTeams" type="number" placeholder="Number of Teams" />
         <p>Number of Teams</p>
@@ -46,7 +46,10 @@
 
 
 @code {
-
+    private async Task ConnectWebSocket()
+    {
+        await JSRuntime.InvokeVoidAsync("connectSse");
+    }
     protected override void OnInitialized()
     {
         SidebarService.RefreshRequested += OnSidebarRefreshRequested;

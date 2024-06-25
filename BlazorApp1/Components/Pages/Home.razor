@@ -55,9 +55,15 @@ else
 }
 
 @code {
+    private async Task ConnectWebSocket()
+    {
+        await JSRuntime.InvokeVoidAsync("connectSse");
+    }
     protected override void OnInitialized()
     {
         RefreshService.RefreshRequested += OnRefreshRequested;
+        SidebarService.InitializeSidebarVisibility(true); // Set initial visibility here
+
     }
 
     private void OnRefreshRequested()

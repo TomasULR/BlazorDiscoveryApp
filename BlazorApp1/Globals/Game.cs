@@ -61,7 +61,6 @@ namespace BlazorApp1.Globals
 
         public static void Update()
         {
-            _refreshService.CallRequestRefresh();
             Global.SaveToFile("C:\\Users\\tomas\\Source\\Repos\\TomasULR\\BlazorDiscoveryApp\\BlazorApp1\\appsettings.json");
 
             if (round > Global.CurrentRound)
