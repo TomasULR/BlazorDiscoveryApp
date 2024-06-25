@@ -1,5 +1,4 @@
-﻿
-namespace BlazorApp1.Models
+﻿namespace BlazorApp1.Models
 {
     public class TeamRound
     {
@@ -15,14 +14,8 @@ namespace BlazorApp1.Models
         public int Presentation { get; set; }
         public int Prototype { get; set; }
         public int Idea { get; set; }
-        public int Total
-        {
-            get => Idea + Presentation + Prototype + Tym;
-            set
-            {
-                Total = value;
-            }
-        }
+
+        public int Total => Presentation + Prototype + Idea + Tym;
 
 
     }
