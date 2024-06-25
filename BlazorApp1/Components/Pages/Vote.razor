@@ -7,7 +7,6 @@
 <PageTitle>AiDiscovery</PageTitle>
 
 <h3>WebSocket Test</h3>
-<button @onclick="ConnectWebSocket">Connect</button>
 
 @if (Globals.Global.Teams.Count > 0)
 {
@@ -55,10 +54,7 @@ else
 }
 
 @code {
-    private async Task ConnectWebSocket()
-    {
-        await JSRuntime.InvokeVoidAsync("connectSse");
-    }
+  
 
     protected override void OnInitialized()
     {
