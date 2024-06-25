@@ -49,3 +49,40 @@ h1:focus {
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
 }
+* {
+    color: white
+}
+
+.container {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px; /* Space between elements */
+}
+
+div {
+    display: block;
+    flex-direction: column;
+    gap: 10px;
+}
+
+button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+input {
+    color: black;
+}
+
+.red_button {
+    padding: 10px;
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+}

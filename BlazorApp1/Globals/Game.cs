@@ -39,12 +39,26 @@ namespace BlazorApp1.Globals
             Update();
         }
 
+        public static void InitializeGameState()
+        {
+            try
+            {
+                Global.LoadFromFile("C:\\Users\\tomas\\Source\\Repos\\TomasULR\\BlazorDiscoveryApp\\BlazorApp1\\appsettings.json");
+            }
+            catch (FileNotFoundException)
+            {
+                // Handle the case where the file does not exist
+                // Maybe create a default state or inform the user
+            }
+        }
+
         public static void Update()
         {
+            Global.SaveToFile("C:\\Users\\tomas\\Source\\Repos\\TomasULR\\BlazorDiscoveryApp\\BlazorApp1\\appsettings.json");
+
             if (round > Global.CurrentRound)
             {
                 Global.CurrentRound++;
-
             }
 
             foreach (var team in teams)
@@ -54,7 +68,7 @@ namespace BlazorApp1.Globals
                     if (i > 0)
                     {
                         if (team.TeamRounds[i].Presentation < team.TeamRounds[i - 1].Presentation)
-                        {   
+                        {
                             team.TeamRounds[i].Presentation = team.TeamRounds[i - 1].Presentation;
                         }
                         if (team.TeamRounds[i].Idea < team.TeamRounds[i - 1].Idea)
@@ -82,7 +96,6 @@ namespace BlazorApp1.Globals
                     }
                 }
             }
-            
         }
     }
 }
