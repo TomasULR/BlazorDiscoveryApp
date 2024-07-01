@@ -1,23 +1,25 @@
-﻿using BlazorApp1.Models;
-using Microsoft.AspNetCore.Components;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
+using BlazorApp1.Models;
 
 namespace BlazorApp1.Globals
 {
-    public class Game
+    public static class Game
     {
+        public static event Action OnUpdate;
+
         private static int numberOfTeams = Global.NumberOfTeams;
-        public static int round = Global.Round;
+        private static int round = Global.Round;
         private static int counter = Global.Counter;
         private static List<TeamModel> teams = Global.Teams;
-
-        [Parameter]
-        public Models.TeamRound TeamRound { get; set; }
-
         public static void PrevRound()
         {
             if (Global.CurrentRound > 1)
             {
                 Global.CurrentRound--;
+                NotifyUpdate();
             }
         }
 
@@ -44,6 +46,7 @@ namespace BlazorApp1.Globals
             try
             {
                 Global.LoadFromFile("C:\\Users\\tomas\\Source\\Repos\\TomasULR\\BlazorDiscoveryApp\\BlazorApp1\\appsettings.json");
+                NotifyUpdate(); // Notify UI after loading
             }
             catch (FileNotFoundException)
             {
@@ -96,6 +99,13 @@ namespace BlazorApp1.Globals
                     }
                 }
             }
+
+            NotifyUpdate();
+        }
+
+        private static void NotifyUpdate()
+        {
+            OnUpdate?.Invoke();
         }
     }
 }

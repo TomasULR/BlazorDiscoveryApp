@@ -1,11 +1,16 @@
-﻿@inherits LayoutComponentBase
+﻿@using BlazorApp1.Services
+@inherits LayoutComponentBase
+@inject SidebarService SidebarService
+
 <RadzenComponents />
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
+     @if (SidebarService.ShowSidebar)
+    {
+        <div class="sidebar">
+            <NavMenu />
+        </div>
+    }
     <main>
         
 
@@ -20,3 +25,21 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
+
+
+@code {
+    protected override void OnInitialized()
+    {
+        SidebarService.RefreshRequested += OnSidebarRefreshRequested;
+    }
+
+    private void OnSidebarRefreshRequested()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        SidebarService.RefreshRequested -= OnSidebarRefreshRequested;
+    }
+}

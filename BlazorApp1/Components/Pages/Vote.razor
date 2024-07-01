@@ -1,18 +1,17 @@
-﻿@page "/home"
+﻿@page "/vote"
 @inject IJSRuntime JSRuntime
-@inject RefreshService RefreshService
-
 @using System.Collections.Generic
 @using BlazorApp1.Models
-
 @rendermode InteractiveServer
 
 <PageTitle>AiDiscovery</PageTitle>
 
+
+
 @if (Globals.Global.Teams.Count > 0)
 {
-    <button @onclick="Globals.Game.PrevRound">Previous Round</button>
-    <button @onclick="Globals.Game.Update">Finish and Next Round</button>
+    <button>Reload</button>
+    <button>Submit</button>
 
     @if (@Globals.Global.Teams.Count > 0)
     {
@@ -38,7 +37,7 @@
                         {
                             @if (teamRound.RoundNumber == Globals.Global.CurrentRound)
                             {
-                                <td><TeamInput Team="@team" TeamRound="@teamRound" /></td>
+                                <td><TeamInputAdd Team="@team" TeamRound="@teamRound" /></td>
                             }
                         }
                     </tr>
@@ -55,24 +54,31 @@ else
 }
 
 @code {
-    
+  
     protected override void OnInitialized()
     {
-        SidebarService.InitializeSidebarVisibility(true); // Set initial visibility here
+        SidebarService.RefreshRequested += OnSidebarRefreshRequested;
+        SidebarService.InitializeSidebarVisibility(false); // Set initial visibility here
         Globals.Game.OnUpdate += HandleGameUpdate;
 
     }
-    
+
+    private void OnSidebarRefreshRequested()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        SidebarService.RefreshRequested -= OnSidebarRefreshRequested;
+        Globals.Game.OnUpdate -= HandleGameUpdate;
+
+    }
+  
     private void HandleGameUpdate()
     {
         InvokeAsync(StateHasChanged);
     }
 
-    // Dispose method to clean up
-    public void Dispose()
-    {
-        Globals.Game.OnUpdate -= HandleGameUpdate;
-    }
-   
-   
+
 }
