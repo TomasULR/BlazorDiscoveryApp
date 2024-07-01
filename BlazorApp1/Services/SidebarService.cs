@@ -12,7 +12,7 @@ namespace BlazorApp1.Services
 
     public class SidebarService : ISidebarService
     {
-        public event Action RefreshRequested;
+        public event Action ?RefreshRequested;
 
         private bool showSidebar = false;
 

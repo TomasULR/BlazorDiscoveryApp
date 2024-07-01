@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BlazorApp1.Services
+﻿namespace BlazorApp1.Services
 {
     public interface IRefreshService
     {
@@ -10,7 +8,7 @@ namespace BlazorApp1.Services
 
     public class RefreshService : IRefreshService
     {
-        public event Action RefreshRequested;
+        public event Action ?RefreshRequested;
 
         public void CallRequestRefresh()
         {

@@ -55,24 +55,24 @@ else
 }
 
 @code {
-    private async Task ConnectWebSocket()
-    {
-        await JSRuntime.InvokeVoidAsync("connectSse");
-    }
+    
     protected override void OnInitialized()
     {
-        RefreshService.RefreshRequested += OnRefreshRequested;
         SidebarService.InitializeSidebarVisibility(true); // Set initial visibility here
+        Globals.Game.OnUpdate += HandleGameUpdate;
 
     }
+    
 
-    private void OnRefreshRequested()
+    private void HandleGameUpdate()
     {
         InvokeAsync(StateHasChanged);
     }
 
+    // Dispose method to clean up
     public void Dispose()
     {
-        RefreshService.RefreshRequested -= OnRefreshRequested;
+        Globals.Game.OnUpdate -= HandleGameUpdate;
     }
+   
 }

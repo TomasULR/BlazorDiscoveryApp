@@ -1,30 +1,52 @@
-﻿using BlazorApp1.Models;
-using BlazorApp1.Services;
-using Microsoft.AspNetCore.Components;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
+using BlazorApp1.Models;
 
 namespace BlazorApp1.Globals
 {
-    public class Game
+    public static class Game
     {
+        public static event Action OnUpdate;
+
         private static int numberOfTeams = Global.NumberOfTeams;
-        public static int round = Global.Round;
+        private static int round = Global.Round;
         private static int counter = Global.Counter;
         private static List<TeamModel> teams = Global.Teams;
-        private static RefreshService _refreshService;
 
-        [Parameter]
-        public Models.TeamRound TeamRound { get; set; }
-
-
-        public Game(RefreshService refreshService)
+        public static int Round
         {
-            _refreshService = refreshService;
+            get => round;
+            set
+            {
+                if (round != value)
+                {
+                    round = value;
+                    NotifyUpdate();
+                }
+            }
         }
+
+        public static List<TeamModel> Teams
+        {
+            get => teams;
+            set
+            {
+                if (teams != value)
+                {
+                    teams = value;
+                    NotifyUpdate();
+                }
+            }
+        }
+
         public static void PrevRound()
         {
             if (Global.CurrentRound > 1)
             {
                 Global.CurrentRound--;
+                NotifyUpdate();
             }
         }
 
@@ -51,6 +73,7 @@ namespace BlazorApp1.Globals
             try
             {
                 Global.LoadFromFile("C:\\Users\\tomas\\Source\\Repos\\TomasULR\\BlazorDiscoveryApp\\BlazorApp1\\appsettings.json");
+                NotifyUpdate(); // Notify UI after loading
             }
             catch (FileNotFoundException)
             {
@@ -103,6 +126,13 @@ namespace BlazorApp1.Globals
                     }
                 }
             }
+
+            NotifyUpdate();
+        }
+
+        private static void NotifyUpdate()
+        {
+            OnUpdate?.Invoke();
         }
     }
 }
