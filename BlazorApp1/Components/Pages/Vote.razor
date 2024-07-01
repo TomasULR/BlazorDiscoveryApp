@@ -55,11 +55,12 @@ else
 
 @code {
   
-
     protected override void OnInitialized()
     {
         SidebarService.RefreshRequested += OnSidebarRefreshRequested;
         SidebarService.InitializeSidebarVisibility(false); // Set initial visibility here
+        Globals.Game.OnUpdate += HandleGameUpdate;
+
     }
 
     private void OnSidebarRefreshRequested()
@@ -70,6 +71,14 @@ else
     public void Dispose()
     {
         SidebarService.RefreshRequested -= OnSidebarRefreshRequested;
+        Globals.Game.OnUpdate -= HandleGameUpdate;
+
     }
+  
+    private void HandleGameUpdate()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
 
 }

@@ -14,33 +14,6 @@ namespace BlazorApp1.Globals
         private static int round = Global.Round;
         private static int counter = Global.Counter;
         private static List<TeamModel> teams = Global.Teams;
-
-        public static int Round
-        {
-            get => round;
-            set
-            {
-                if (round != value)
-                {
-                    round = value;
-                    NotifyUpdate();
-                }
-            }
-        }
-
-        public static List<TeamModel> Teams
-        {
-            get => teams;
-            set
-            {
-                if (teams != value)
-                {
-                    teams = value;
-                    NotifyUpdate();
-                }
-            }
-        }
-
         public static void PrevRound()
         {
             if (Global.CurrentRound > 1)
